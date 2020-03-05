@@ -1415,16 +1415,36 @@ command /slap [<player>]:
 			stop
 		broadcast "&b» &e%player's name% &aslapped &e%arg-1's name% &aright in the face."
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+command /funny [<offlineplayer>]:
+	trigger:
+		if player does not have permission "PERMISSION GOES HERE":
+			send "&8[&bEmotes&8] &7You need &d[RANK GOES HERE] &7to use that"
+			stop
+		if {justusedemote::%player%} is not set:
+			set {justusedemote::%player%} to now
+		else if {justusedemote::%player%} was less than 6 seconds ago:
+			message "&8[&bEmote&8] &7Please wait a few seconds before doing another emote"
+			stop
+		if {emote.toggle::%uuid of arg-1%} is set:
+			message "&8[&bEmotes&8] &eThat player has emotes toggled off"
+			stop
+		if arg-1 is not set:
+			message "&8[&bEmotes&8] &7Please add a player &b/slap (player)"
+			stop
+		set {justusedemote::%player%} to now
+		if "%player%" = "%arg-1%":
+			chance of 25%:
+				broadcast "&b» &e%player's name% &athinks he is funny!"
+				stop
+			chance of 25%:
+				broadcast "&b» &e%player's name% &alaughs at his own jokes!"
+				stop
+			broadcast "&b» &e%player's name% &ais laughing alone!"
+			stop
+		chance of 25%:
+			broadcast "&b» &e%player's name% &athinks &e%arg-1's name% &ais funny!"
+			stop
+		chance of 25%:
+			broadcast "&b» &e%player's name% &ais laughing with &e%arg-1's name%&a's jokes"
+			stop
+		broadcast "&b» &e%player's name% &ais going to die due to laughing from &e%arg-1's name%&a's jokes!"
